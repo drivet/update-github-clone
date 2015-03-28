@@ -10,7 +10,7 @@ git = '/usr/bin/git'
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
-@app.route('/',methods=['POST'])
+@app.route('/payload',methods=['POST'])
 def handle_webhook():
     if not verify_signature(request.data):
         return "bad signature", 500

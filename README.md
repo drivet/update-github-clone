@@ -13,16 +13,16 @@ up to date one.
 
 ## Deployment
 
-The app configures a POST route on '/github-webhook'.  This means that you
-have to configure your github webhook (in the repo you're cloning from) to
-hit your server like this:
+The app configures a POST route on '/'.  This means that you have to configure 
+your github webhook (in the repo you're cloning from) to hit your server like 
+this:
 
-http://www.yourserver.com/github-webhook
+http://www.yourserver.com/
 
 Other options exist.  You can change the route, of course, but what I choose
 to do (since I already had a WSGI app configured and running) is "attach"
-the app to a different URL at the WSGI level, via the DispatcherMiddleware
-from the [werkzeug][1] project:
+the app to a different URL (github-webhook) at the WSGI level, via the 
+DispatcherMiddleware from the [werkzeug][1] project:
 
 ```python
 from yawt import create_app
@@ -34,6 +34,10 @@ application = DispatcherMiddleware(yawtapp, {
     '/github-webhook':     webhookapp
 })
 ```
+
+So now you can POST via this URL:
+
+http://www.yourserver.com/github-webhook
 
 In any case, what's provides here is mostly a template to be adpated to new
 situations.
